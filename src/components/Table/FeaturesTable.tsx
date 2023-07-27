@@ -182,22 +182,20 @@ const select = (e: any) => {
 
 const FeatureTable = () => {
     return (
-        <>
-            <Grid
-                data={TableData}
-                columns={columns}
-                onCheck={select}
-                className='table-center'
-                width = {1200}
-                bodyHeight={500}
-                scrollX = {true}
-                scrollY = {true}
-                rowHeaders={['rowNum', 'checkbox']}
-                summary={summary}
-                header={header}
-                columnOptions={columnOptions}
-            />
-        </>
+        <Grid
+            data={TableData}
+            columns={columns}
+            onCheck={select}
+            className='table-center'
+            width = {1200}
+            bodyHeight={500}
+            scrollX = {true}
+            scrollY = {true}
+            rowHeaders={['rowNum', 'checkbox']}
+            summary={summary}
+            header={header}
+            columnOptions={columnOptions}
+        />
     )
 }
 
