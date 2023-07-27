@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Grid from '@toast-ui/react-grid';
 import { TableData } from '../../_mock/TableData';
 import { OptColumn } from 'tui-grid/types/options';
