@@ -1,44 +1,40 @@
-import React, { useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
+import { CellEditor, CellEditorProps } from 'tui-grid/types/editor';
 
-interface CustomTextEditorProps {
-  value: string;
-  onChange: (value: string) => void;
+interface CustomCellEditorProps extends CellEditorProps {
+  options?: {
+    maxLength?: number;
+  };
 }
 
-const CustomTextEditor: React.FC<CustomTextEditorProps> = (props) => {
-  const elRef = useRef<HTMLDivElement>(null);
+class CustomTextEditor implements CellEditor {
+  public el: HTMLInputElement;
 
-  useEffect(() => {
-    const el = elRef.current;
+  constructor(props: CustomCellEditorProps) {
+    this.el = document.createElement('input');
+    this.el.type = 'text';
 
-    if (!el) {
-      return;
+    if (props.value) {
+      this.el.value = props.value.toString();
     }
 
-    const handleChange = () => {
-      const value = el.innerText;
-      props.onChange(value);
-    };
-
-    el.addEventListener('input', handleChange);
-
-    return () => {
-      el.removeEventListener('input', handleChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    const el = elRef.current;
-
-    if (!el) {
-      return;
+    if (props.options) {
+      if (props.options.maxLength) {
+        this.el.maxLength = props.options.maxLength;
+      }
     }
+  }
 
-    el.innerText = props.value;
-  }, [props.value]);
+  getElement() {
+    return this.el;
+  }
 
-  return <div contentEditable ref={elRef} />;
-};
+  getValue() {
+    return this.el.value;
+  }
 
-export default CustomTextEditor;
+  mounted() {
+    this.el.select();
+  }
+}
+
+export default CustomTextEditor
